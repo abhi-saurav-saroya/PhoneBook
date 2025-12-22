@@ -113,6 +113,72 @@ void PhoneBook::addContact() {
     cout << "Contact added successfully!" << endl;
 }
 
+void PhoneBook::searchContact() {
+    cout << "1. Search by First Name\n";
+    cout << "2. Search by Last Name\n";
+    cout << "3. Search by Contact Number\n";
+    int searchChoice;
+
+    if(!cin) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid input." << endl;
+        return;
+    }
+    cin >> searchChoice;
+
+    string fName;
+    string lName;
+    unsigned long long cNumber;
+
+    if(searchChoice == 1) {
+        cout << "Enter first name: ";
+        cin >> fName;
+    } 
+    else if(searchChoice == 2) {
+        cout << "Enter last name: ";
+        cin >> lName;
+    } 
+    else if(searchChoice == 3) {
+        while(1) {
+            cout << "Enter contact number: ";
+            if(!cin) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Invalid input. Please enter a number between 1 and 6." << endl;
+                continue;
+            }
+            cin >> cNumber;
+            break;
+        }
+    } 
+    else {
+        cout << "Invalid choice." << endl;
+    }
+
+    ifstream file("phonebook.txt");
+    string fNameFile, lNameFile;
+    unsigned long long cNumberFile;
+    while(file >> fNameFile >> lNameFile >> cNumberFile) {
+        if(searchChoice == 1 && fName == fNameFile) {
+            cout << "First Name: " << fNameFile << endl;
+            cout << "Last Name: " << lNameFile << endl;
+            cout << "Contact Number: " << cNumberFile << endl;
+        }
+        else if(searchChoice == 2 && lName == lNameFile) {
+            cout << "First Name: " << fNameFile << endl;
+            cout << "Last Name: " << lNameFile << endl;
+            cout << "Contact Number: " << cNumberFile << endl;
+        }
+        else if(searchChoice == 3 && cNumber == cNumberFile) {
+            cout << "First Name: " << fNameFile << endl;
+            cout << "Last Name: " << lNameFile << endl;
+            cout << "Contact Number: " << cNumberFile << endl;
+        }
+    }
+    file.close();
+}
+
 void PhoneBook::displayContact() {
     cout << "Feature under development." << endl;
 }
