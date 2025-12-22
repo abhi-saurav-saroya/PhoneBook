@@ -1,13 +1,14 @@
 #include<iostream>
 #include<string>
 #include<fstream>
+#include<vector>
 using namespace std;
 
 class PhoneBook {
     private:
         string firstName;
         string lastName;
-        unsigned long long contact[5];
+        vector<unsigned long long> contact;
 
     public:
         void addContact();
@@ -93,10 +94,12 @@ void PhoneBook::addContact() {
             cout << "Invalid contact number. Please enter digits only." << endl;
             return;
         }
-        cin >> contact[0];
+        unsigned long long cNumber;
+        cin >> cNumber;
+        contact.push_back(cNumber);
 
         ofstream file("phonebook.txt", ios::app);
-        file << firstName << " " << lastName << " " << contact << endl;
+        file << firstName << " " << lastName << " " << cNumber << endl;
         file.close();
     }
 
