@@ -7,7 +7,7 @@ using namespace std;
 struct Contact {
     string firstName;
     string lastName;
-    vector<string> numbers;
+    vector<unsigned long long> numbers;
 };
 class PhoneBook {
     private:
@@ -103,7 +103,7 @@ void PhoneBook::addContact() {
         Contact c;
         c.firstName = firstName;
         c.lastName = lastName;
-        c.numbers.push_back(to_string(cNumber));
+        c.numbers.push_back(cNumber);
 
         contacts.push_back(c);
 
