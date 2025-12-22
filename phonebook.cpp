@@ -195,6 +195,26 @@ void PhoneBook::displayContact() {
     cout << "Feature under development." << endl;
 }
 
+void PhoneBook::updateContact() {
+    cout << "Feature under development." << endl;
+}
+
+void PhoneBook::deleteContact() {
+    cout << "Feature under development." << endl;
+}
+
+void PhoneBook::sortContacts() {
+    cout << "Feature under development." << endl;
+}
+
+void PhoneBook::saveToFile() {
+    cout << "Feature under development." << endl;
+}
+
+void PhoneBook::loadFromFile() {
+    cout << "Feature under development." << endl;
+}
+
 int main() {
     PhoneBook pb;
     pb.menu();
