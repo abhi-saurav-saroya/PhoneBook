@@ -41,14 +41,13 @@ void PhoneBook::menu() {
         cout << "6. Exit\n";
         cout << "Enter your choice: ";
 
+        cin >> choice;
         if(!cin) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input. Please enter a number between 1 and 6." << endl;
             continue;
         }
-
-        cin >> choice;
 
         switch(choice) {
             case 1:
@@ -88,14 +87,15 @@ void PhoneBook::addContact() {
         cin >> lastName;
         cout << "Enter contact number: ";
 
+        unsigned long long cNumber;
+        cin >> cNumber;
         if(!cin) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid contact number. Please enter digits only." << endl;
             return;
         }
-        unsigned long long cNumber;
-        cin >> cNumber;
+        
         contact.push_back(cNumber);
 
         ofstream file("phonebook.txt", ios::app);
@@ -122,13 +122,13 @@ void PhoneBook::searchContact() {
     cout << "3. Search by Contact Number\n";
     int searchChoice;
 
+    cin >> searchChoice;
     if(!cin) {
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Invalid input." << endl;
         return;
     }
-    cin >> searchChoice;
 
     string fName;
     string lName;
@@ -145,13 +145,13 @@ void PhoneBook::searchContact() {
     else if(searchChoice == 3) {
         while(1) {
             cout << "Enter contact number: ";
+            cin >> cNumber;
             if(!cin) {
                 cin.clear();
                 cin.ignore(1000, '\n');
                 cout << "Invalid input. Please enter a number between 1 and 6." << endl;
                 continue;
             }
-            cin >> cNumber;
             break;
         }
     } 
