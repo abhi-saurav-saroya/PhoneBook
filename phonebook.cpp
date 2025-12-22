@@ -4,11 +4,14 @@
 #include<vector>
 using namespace std;
 
+struct Contact {
+    string firstName;
+    string lastName;
+    vector<string> numbers;
+};
 class PhoneBook {
     private:
-        string firstName;
-        string lastName;
-        vector<unsigned long long> contact;
+        vector<Contact> contacts;
 
     public:
         void addContact();
@@ -82,6 +85,7 @@ void PhoneBook::addContact() {
 
     if(subChoice == 1) {
         cout << "Enter first name: ";
+        string firstName, lastName;
         cin >> firstName;
         cout << "Enter last name: ";
         cin >> lastName;
@@ -95,8 +99,13 @@ void PhoneBook::addContact() {
             cout << "Invalid contact number. Please enter digits only." << endl;
             return;
         }
-        
-        contact.push_back(cNumber);
+
+        Contact c;
+        c.firstName = firstName;
+        c.lastName = lastName;
+        c.numbers.push_back(to_string(cNumber));
+
+        contacts.push_back(c);
 
         ofstream file("phonebook.txt", ios::app);
         file << firstName << " " << lastName << " " << cNumber << endl;
