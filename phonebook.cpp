@@ -96,7 +96,9 @@ bool PhoneBook::numberExists(unsigned long long number) {
 
 Contact* PhoneBook::findContact(const string& first, const string& last) {
     for (Contact& c : contacts) {
-        if (c.firstName == first && c.lastName == last) {
+        bool firstMatch = first.empty() || c.firstName == first;
+        bool lastMatch  = last.empty() || c.lastName == last;
+        if (firstMatch && lastMatch) {
             return &c;
         }
     }
