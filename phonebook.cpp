@@ -77,6 +77,7 @@ void PhoneBook::menu() {
                 searchContact();
                 break;
             case 6:
+                saveToFile();
                 cout << "Exiting Phone Book. Goodbye!" << endl;
                 break;
             default:
@@ -516,7 +517,22 @@ void PhoneBook::sortContacts() {
 
 void PhoneBook::saveToFile() {
     cout << endl;
-    cout << "Feature under development." << endl;
+    ofstream outFile("contacts.txt", ios::out);
+    if (!outFile) {
+        cout << "Error opening file for saving." << endl;
+        return;
+    }
+
+    for (const Contact& c : contacts) {
+        outFile << c.firstName << " " << c.lastName;
+        for (unsigned long long num : c.numbers) {
+            outFile << " " << num;
+        }
+        outFile << endl;
+    }
+
+    cout << "Contacts saved to file successfully." << endl;
+    outFile.close();
 }
 
 void PhoneBook::loadFromFile() {
