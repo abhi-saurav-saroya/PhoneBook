@@ -31,6 +31,14 @@ class PhoneBook {
         Contact* findContact(unsigned long long number);
 };
 
+string toLower(const string& s) {
+    string result = s;
+    for (char& ch : result) {
+        ch = tolower(ch);
+    }
+    return result;
+}
+
 void PhoneBook::menu() {
     int choice;
     do {
@@ -96,8 +104,8 @@ bool PhoneBook::numberExists(unsigned long long number) {
 
 Contact* PhoneBook::findContact(const string& first, const string& last) {
     for (Contact& c : contacts) {
-        bool firstMatch = first.empty() || c.firstName == first;
-        bool lastMatch  = last.empty() || c.lastName == last;
+        bool firstMatch = first.empty() || toLower(c.firstName) == toLower(first);
+        bool lastMatch  = last.empty() || toLower(c.lastName) == toLower(last);
         if (firstMatch && lastMatch) {
             return &c;
         }
@@ -109,7 +117,7 @@ Contact* PhoneBook::findContact(unsigned long long number) {
     for (Contact& c : contacts) {
         for (unsigned long long num : c.numbers) {
             if (num == number) {
-                return &c;  //
+                return &c;
             }
         }
     }
@@ -169,10 +177,6 @@ void PhoneBook::addContact() {
         c.lastName = lastName;
         c.numbers.push_back(cNumber);
         contacts.push_back(c);
-
-        // ofstream file("phonebook.txt", ios::app);
-        // file << firstName << " " << lastName << " " << cNumber << endl;
-        // file.close();
     }
 
     else if(subChoice == 2) {
@@ -330,7 +334,7 @@ void PhoneBook::deleteContact() {
 
     vector<Contact>::iterator it;
     for (it = contacts.begin(); it != contacts.end(); ++it) {
-        if (it->firstName == fName && it->lastName == lName) {
+        if (toLower(it->firstName) == toLower(fName) && toLower(it->lastName) == toLower(lName)) {
             contacts.erase(it);
             cout << "All contact numbers of this contact deleted successfully." << endl;
             return;
