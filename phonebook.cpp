@@ -322,7 +322,146 @@ void PhoneBook::displayContact() {
 
 void PhoneBook::updateContact() {
     cout << endl;
-    cout << "Feature under development." << endl;
+    cout << "\t1. Update First Name\n";
+    cout << "\t2. Update Last Name\n";
+    cout << "\t3. Update Contact Number\n";
+    int updateChoice;
+
+    while(1) {
+        cout << "Enter your choice: ";
+        cin >> updateChoice;
+        if(!cin || updateChoice < 1 || updateChoice > 3) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Please enter a number between 1 and 3." << endl;
+            continue;
+        }
+        break;
+    }
+
+    if (updateChoice == 1) {
+        cout << endl;
+        string fName, lName, newFName;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter the First Name and Last Name of the contact to update." << endl;
+        cin >> fName >> lName;
+
+        Contact* c = findContact(fName, lName);
+        if (!c) {
+            cout << "Contact not found." << endl;
+            return;
+        } else {
+            cout << "Enter new First Name: ";
+            cin >> newFName;
+
+            if (toLower(c->firstName) != toLower(newFName) && nameExists(newFName, lName)) {
+                cout << "A contact with this new name already exists." << endl;
+                return;
+            }
+
+            c->firstName = newFName;
+            cout << "First Name updated successfully." << endl;
+        }
+    }
+
+    else if (updateChoice == 2) {
+        cout << endl;
+        string fName, lName, newLName;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter the First Name and Last Name of the contact to update." << endl;
+        cin >> fName >> lName;
+
+        Contact* c = findContact(fName, lName);
+        if (!c) {
+            cout << "Contact not found." << endl;
+            return;
+        } else {
+            cout << "Enter new Last Name: ";
+            cin >> newLName;
+
+            if (toLower(c->lastName) != toLower(newLName) && nameExists(fName, newLName)) {
+                cout << "A contact with this new name already exists." << endl;
+                return;
+            }
+
+            c->lastName = newLName;
+            cout << "Last Name updated successfully." << endl;
+        }
+    }
+
+    else if (updateChoice == 3) {
+        cout << endl;
+        string fName, lName;
+        unsigned long long oldNumber, newNumber;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter the First Name and Last Name of the contact to update." << endl;
+        cin >> fName >> lName;
+
+        Contact* c = findContact(fName, lName);
+        if (!c) {
+            cout << "Contact not found." << endl;
+            return;
+        } else {
+            cout << "Current contact numbers: ";
+            for (auto num : c->numbers) {
+                cout << num << " ";
+            }
+            cout << endl;
+            while(1) {
+                cout << endl;
+                cout << "Enter the old contact number to be updated: ";
+                cin >> oldNumber;
+                if(!cin) {
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cout << "Invalid contact number." << endl;
+                    continue;
+                }
+                break;
+            }
+
+            bool found = false;
+            for (auto &num : c->numbers) {
+                if (num == oldNumber) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                cout << "This number does not belong to the selected contact." << endl;
+                return;
+            }
+
+            while(1) {
+                cout << endl;
+                cout << "Enter new contact number: ";
+                cin >> newNumber;
+                if(!cin) {
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cout << "Invalid contact number." << endl;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+
+            if (numberExists(newNumber)) {
+                cout << "This new contact number already exists." << endl;
+                return;
+            } else {
+                for (auto &num : c->numbers) {
+                    if (num == oldNumber) {
+                        num = newNumber;
+                        break;
+                    }
+                }
+            }
+            cout << "Contact number updated successfully." << endl;
+        }
+    }
 }
 
 void PhoneBook::deleteContact() {
