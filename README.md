@@ -84,10 +84,10 @@ g++ phonebook.cpp -o phonebook
 4. Run the program:
 ```bash
 # Linux / Mac
-./contact_manager
+./phonebook
 
 # Windows
-contact_manager.exe
+phonebook.exe
 ```
 
 ## Requirements
